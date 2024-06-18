@@ -1,3 +1,9 @@
+import { ContactForm } from "./form";
+
 export default function Home() {
-  return <main></main>
+  return (
+    <main>
+        <ContactForm />
+    </main>
+  )
 }
