@@ -1,8 +1,10 @@
 'use client'
 
 import { FormEvent, useState } from "react"
+import Confetti from 'react-confetti'
 
 export const ContactForm = () => {
+    const  [isSubmitted, setSubmitted] =useState(false)
      const [name, setName] = useState('')
      const [email, setEmail] = useState('')
      const [message, setMessage] = useState('')
@@ -21,6 +23,9 @@ export const ContactForm = () => {
                 'content-type': 'application/json'
             },
         })
+        if (res.status === 200){
+            setSubmitted(true)
+        }
 
        } catch(err: any) {
         console.error('Err', err)
@@ -30,27 +35,58 @@ export const ContactForm = () => {
 
 
     return (
-        <form onSubmit={onSubmit}>
-            <input 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-                type="text" 
-                placeholder="Name" 
-            />
+        isSubmitted 
+        ?(
+            <div>
+                <Confetti/>
+                <h1 className="text-center font-semibold text-3xl">Thank you for your message!</h1>
+            </div>
+         )
+        :(
+          <div className=" container px-10 pt-8 pb-8  bg-sky-100">
+            <p className="text-center text-2xl font-semibold ">Contact us</p>
+            <form onSubmit={onSubmit} className="flex flex-col gap-8">
+                <label className="form-control w-full">
+                <div className="label font-semibold">
+                <span className="label-text">Fullname</span>
+                </div>
+                <input 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    type="text"
+                    placeholder="Dipo Dclasyc" 
+                    className="input input-bordered input-primary w-full text-sm" 
+                />
+                </label>
 
-            <input 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                type="email" 
-                placeholder="Email" 
-            />
-            <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            ></textarea>
+                <label className="form-control w-full">
+                <div className="label font-semibold">
+                <span className="label-text">Email</span>
+                </div>
+                <input 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    type="text"
+                    placeholder="your@email.com" 
+                    className="input input-bordered input-primary w-full text-sm" 
+                />
+                </label>
 
-            <button type="submit">Submit</button>
-        </form>
+                <label className="form-control w-full">
+                <div className="label">
+                <span className="label-text font-semibold">Leave a message</span>
+                </div>
+                <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="textarea textarea-primary w-full" >
+                </textarea>
+                </label>
+
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        )
     )
 
 }
