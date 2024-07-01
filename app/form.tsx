@@ -1,7 +1,7 @@
 'use client'
 import React from "react"
 import { FormEvent, useState } from "react"
-import Confetti from 'react-confetti'
+
 
 export const ContactForm = () => {
     const  [isSubmitted, setSubmitted] =useState(false)
@@ -37,8 +37,7 @@ export const ContactForm = () => {
     return (
         isSubmitted 
         ?(
-            <div>
-                <Confetti/>
+            <div className="bg-green-400">
                 <h1 className="text-center font-semibold text-3xl">Thank you for your message!</h1>
             </div>
          )

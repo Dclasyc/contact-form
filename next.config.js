@@ -5,7 +5,4 @@ const nextConfig = {
   },
 }
 
-module.exports = {
-  output: 'export',
-  distDir: 'out',
-}
+module.exports = nextConfig
